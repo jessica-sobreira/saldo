@@ -1,8 +1,24 @@
 import { Button, TextField, Box, InputLabel, Select, MenuItem, FormControl } from '@mui/material';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export function Transacoes() {
     const navigate = useNavigate();
+    const [descricao, setDescricao] = useState('');
+    const [tipo, setTipo] = useState('');
+    const [valor, setValor] = useState(0);
+
+    const cadastrarTransacao = () => {
+        const transacao = {
+            descricao: descricao,
+            tipo: tipo,
+            valor: valor
+        }
+        console.log(transacao);
+        
+    }
+
+
     return (
         <>
         <h1>Finanças</h1>
@@ -13,7 +29,13 @@ export function Transacoes() {
         <br />
         <br />
         <Box>
-        <TextField  id="descricao" label="Descrição" name="descricao" variant="outlined" ></TextField>
+        <TextField  id="descricao" 
+        label="Descrição" 
+        name="descricao" 
+        variant="outlined"
+        value={descricao}
+        onChange={(event) => setDescricao(event.target.value)}
+         ></TextField>
         <br />
         <br />
         <FormControl fullWidth>
@@ -21,9 +43,10 @@ export function Transacoes() {
             <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                // value={tipo}
+                value={tipo}
                 label="Tipo"
-                // onChange={handleChange}
+                onChange={(event) => setTipo(event.target.value)}
+
             >
                 <MenuItem value={'Entrada'}>Entrada</MenuItem>
                 <MenuItem value={'Saída'}>Saída</MenuItem>
@@ -32,12 +55,19 @@ export function Transacoes() {
           </FormControl>
         <br />
         <br />
-        <TextField  id="valor" label="Valor" name="valor" variant="outlined" ></TextField>
+        <TextField  
+        id="valor" 
+        label="Valor" 
+        name="valor" 
+        variant="outlined"
+        value={valor}
+        onChange={(event) => setValor(Number(event.target.value))}
+         ></TextField>
         <br />
         <br />
         <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
         <Button variant="contained" style = 
-        {{color: 'white', fontWeight: 'bold', backgroundColor: 'darkgreen'}}>Enviar</Button>
+        {{color: 'white', fontWeight: 'bold', backgroundColor: 'darkgreen'}} onClick={cadastrarTransacao}>Enviar</Button>
         </div>
 
         </Box>
