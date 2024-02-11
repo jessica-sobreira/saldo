@@ -1,19 +1,24 @@
 import { Button, TextField, Box, InputLabel, Select, MenuItem, FormControl } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../config/hook';
+import { Transacao, adicionarTransacao } from '../config/modules/transacoesSlice';
+
 
 export function Transacoes() {
     const navigate = useNavigate();
     const [descricao, setDescricao] = useState('');
     const [tipo, setTipo] = useState('');
     const [valor, setValor] = useState(0);
+    const dispatch = useAppDispatch();
 
     const cadastrarTransacao = () => {
-        const transacao = {
+        const transacao: Transacao = {
             descricao: descricao,
-            tipo: tipo,
+            tipo: "Entrada" === tipo ? "Entrada" : "Saída",
             valor: valor
         }
+        dispatch(adicionarTransacao(transacao));
         console.log(transacao);
         
     }

@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 
 export interface Transacao {
@@ -33,7 +33,19 @@ const initialState: Conta = {
 export const transacoesSlice = createSlice({
     name: 'conta',
     initialState: initialState,
-    reducers: {},
+    reducers: {
+        adicionarTransacao: (state, action: PayloadAction<Transacao>) => {
+            state.transacoes.push(action.payload);
+
+            if(action.payload.tipo === 'Entrada') {
+                state.saldo += action.payload.valor;
+            } else {
+                state.saldo -= action.payload.valor;
+            }
+        }
+    },
 }); 
 
 export default transacoesSlice.reducer;
+
+export const { adicionarTransacao } = transacoesSlice.actions;
