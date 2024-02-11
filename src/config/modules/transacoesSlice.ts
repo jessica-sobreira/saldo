@@ -35,3 +35,5 @@ export const transacoesSlice = createSlice({
     initialState: initialState,
     reducers: {},
 }); 
+
+export default transacoesSlice.reducer;

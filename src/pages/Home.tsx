@@ -7,9 +7,17 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { useEffect } from 'react';
+import { useAppSelector } from '../config/hook';
 
 export function Home() {
     const navigate = useNavigate();
+    const financas = useAppSelector((state) => state.transacoes)
+
+    useEffect(() => {
+      console.log(financas);
+      
+    },[])
 
     return (
         <>
@@ -30,22 +38,24 @@ export function Home() {
             </TableRow>
             </TableHead>
             <TableBody>
-       
-            <TableRow
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                Salário
-              </TableCell>
-              <TableCell align="right">Entrada</TableCell>
-              <TableCell align="right">R$ 500</TableCell>
-             
-            </TableRow>
-        
-        </TableBody>
-
+            {financas.transacoes.map((transacao) => {
+                return (
+                    <TableRow
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    >
+                      <TableCell component="th" scope="row">
+                        {transacao.descricao}
+                      </TableCell>
+                      <TableCell align="right">{transacao.tipo}</TableCell>
+                      <TableCell align="right">{transacao.valor}</TableCell>
+                      
+                    </TableRow>
+                )
+              })}
+              </TableBody>
+            
         <TableRow>
-              <TableCell style ={{ fontWeight: 'bold', paddingBottom: 3, paddingTop: 3 }} colSpan={6} >Saldo:</TableCell>
+              <TableCell style ={{ fontWeight: 'bold', paddingBottom: 3, paddingTop: 3 }} colSpan={6} >Saldo: {financas.saldo}</TableCell>
 
         </TableRow>
       </Table>
