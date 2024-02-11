@@ -1,5 +1,4 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface Transacao {
     descricao: string;
@@ -13,17 +12,17 @@ export interface Conta {
 }
 
 const initialState: Conta = {
-    saldo: 50,
+    saldo: 0,
     transacoes: [
         {
         descricao: 'valor 1',
         tipo: 'Entrada',
-        valor: 100
+        valor: 50
     },
     {
         descricao: 'valor 2',
         tipo: 'Saída',
-        valor: 80
+        valor: 50
     }
 ]
 
